@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/SQL/PoultryFarmDB/PoultryFarmDB/Scripts/ScriptsIgnoredOnImport.sql
+/SQL/PoultryFarmDB/PoultryFarmDB/PoultryFarmDB.sqlproj.user
+/SQL/PoultryFarmDB/PoultryFarmDB/obj/Debug
+/SQL/PoultryFarmDB/PoultryFarmDB/Import Script Logs
+/SQL/PoultryFarmDB/PoultryFarmDB/Import Schema Logs
+/SQL/PoultryFarmDB/PoultryFarmDB/bin/Debug
+/SQL/PoultryFarmDB/.vs/PoultryFarmDB/v16
+/.vs

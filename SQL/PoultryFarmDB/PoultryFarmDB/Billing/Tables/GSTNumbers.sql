@@ -1,0 +1,31 @@
+﻿CREATE TABLE [Billing].[GSTNumbers](
+	[GSTNumberID] [int] IDENTITY(1,1) NOT NULL,
+	[GSTNumberGUID] [uniqueidentifier] NOT NULL,
+	[CompanyID] [int] NOT NULL,
+	[GSTNumber] [varchar](20) NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[CreatedDate] [datetime] NOT NULL,
+	[LastUpdate] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[GSTNumberID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[GSTNumberGUID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+
+GO
+ALTER TABLE [Billing].[GSTNumbers]  WITH CHECK ADD FOREIGN KEY([CompanyID])
+REFERENCES [BusinessEntity].[Companies] ([CompanyID])
+GO
+ALTER TABLE [Billing].[GSTNumbers]  WITH CHECK ADD FOREIGN KEY([CompanyID])
+REFERENCES [BusinessEntity].[Companies] ([CompanyID])
+GO
+ALTER TABLE [Billing].[GSTNumbers]  WITH CHECK ADD FOREIGN KEY([CompanyID])
+REFERENCES [BusinessEntity].[Companies] ([CompanyID])
+GO
+ALTER TABLE [Billing].[GSTNumbers]  WITH CHECK ADD FOREIGN KEY([CompanyID])
+REFERENCES [BusinessEntity].[Companies] ([CompanyID])
