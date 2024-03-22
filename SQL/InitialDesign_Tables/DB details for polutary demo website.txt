@@ -1,0 +1,260 @@
+DB details:
+
+Account Schema:
+
+Account.Users table:
+UserId
+UserGUID
+First Name
+Middle Name (NULL possible)
+Last Name
+Email Address
+Password
+Designation
+CompanyID - Foreign Key of BusinessEntity.Companies table
+OfficeID - Foreign Key of BusinessEntity.Offices table
+IsPointOfContact - bit
+ISOwner (NULL possible)
+IsActive - bit
+IsKYCVerified - bit
+CreatedDate
+LastUpdate
+
+Account.PANDetails table:
+PANID
+PANGUID
+UserID - Foreign Key of Account.Users table
+PAN
+IsActive
+CreatedDate
+LastUpdate
+
+Account.UserContactNumbers table
+ContactNumberID
+ContactNumberGUID
+UserID - Foreign Key of Account.Users table
+ContactNumber
+IsActive
+CreatedDate
+LastUpdate
+
+Account.KYCDetails table
+KYCID
+KYCGUID
+UserID - Foreign Key of Account.Users table
+KYCFilePath
+
+
+Entity Schema: 
+
+BusinessEntity.Companies table
+CompanyID
+CompanyGUID
+CompanyName
+CreatedDate
+LastUpdate
+
+BusinessEntity.Offices table
+OfficeID
+OfficeGUID
+CompanyID - Foreign Key of BusinessEntity.Companies table
+CreatedDate
+LastUpdate
+
+PhysicalAddress Schema:
+
+PhysicalAddress.CompanyAddress table
+CompanyAddressID
+CompanyAddressGUID
+CompanyID - Foreign Key of BusinessEntity.Companies table
+StreetAddressLine1
+StreetAddressLine2   (NULL possible)  
+City     
+StateProvinceRegion     
+PostalCode     
+Country     
+Latitude (NULL possible)    
+Longitude (NULL possible)    
+AddressType 
+IsPrimary
+IsActive
+CreatedDate
+LastUpdate
+
+PhysicalAddress.BillingAddress table
+BillingAddressID
+BillingAddressGUID
+OfficeID - - Foreign Key of BusinessEntity.Offices table
+StreetAddressLine1
+StreetAddressLine2  (NULL possible)   
+City     
+StateProvinceRegion     
+PostalCode     
+Country     
+Latitude  (NULL possible)   
+Longitude  (NULL possible)   
+AddressType
+IsPrimary
+IsActive
+CreatedDate
+LastUpdate
+
+PhysicalAddress.ShippingAddress table
+ShippingAddressID
+ShippingAddressGUID
+OfficeID - - Foreign Key of BusinessEntity.Offices table
+StreetAddressLine1
+StreetAddressLine2     (NULL possible)
+City     
+StateProvinceRegion     
+PostalCode     
+Country     
+Latitude  (NULL possible)   
+Longitude    (NULL possible) 
+AddressType
+IsPrimary 
+IsActive
+CreatedDate
+LastUpdate
+
+Finance Schema:
+
+Finance.GSTNumbers table
+GSTNumberID
+GSTNumberGUID
+CompanyID - Foreign Key of BusinessEntity.Companies table
+GSTNumber
+IsActive
+CreatedDate
+LastUpdate
+
+ProductCatalog Schema:
+
+Inventory.Product
+ProductID
+ProductGUID unique not null
+CategoryId not null
+ProductName not null  
+Description not null
+Price not null (unit price)
+IsAvailable bit not null
+CreatedDate not null
+LastUpdate not null
+
+Inventory.Categories
+CategoryId
+CategoryGUID unique not null
+CategoryKey not null
+CategoryName not null
+CategoryDescription not null
+CreatedDate not null
+LastUpdate not null
+
+Inventory.Cart
+CartID  int Primary key Identity(1,1)
+CartGUID NOT NULL,
+UserID int Not NULL ForeignKey from Account.Users table
+IsActive bit Not null
+CreatedDate not null
+LastUpdate not null
+
+Inventory.CartDetails
+CartDetailID  int Primary key Identity(1,1)
+CartDetailGUID NOT NULL,
+CartID int not null foreign key from Inventory.Cart table
+ProductID int not null
+Quanity int not null
+UnitID int not null foreignkey from Miscellaneous.Units
+Price int not null
+CreatedDate not null
+LastUpdate not null
+
+Inventory.Order
+OrderID  int Primary key Identity(1,1)
+OrderGUID NOT NULL,
+UserID Not NULL ForeignKey from Account.Users table
+StatusTypeID int Not null foreignkey from Miscellaneous.Type
+CreatedDate not null
+LastUpdate not null
+
+Inventory.OrderStatusHistory
+StatusHistoryID bigint (Primary Key) IDENTITY(1,1)
+StatusHistoryGUID not null
+OrderID bigint not null (Foreign Key referencing Inventory.Order table)
+StatusTypeID (Foreign Key referencing OrderStatusTypes table)
+CreatedDate not null
+LastUpdate not null
+
+Inventory.OrderDetails
+OrderDetailID  int Primary key Identity(1,1)
+OrderDetailGUID NOT NULL,
+OrderID int not null foreign key from Inventory.Cart table
+ProductID int not null
+Quanity int not null
+UnitID int not null foreignkey from Miscellaneous.Units
+Price int not null (product price during purchase, not current price)
+InventoryAddressID int not null foreignkey from BusinessEntity.Address
+CreatedDate not null
+LastUpdate not null
+
+
+Billing.Invoices table:
+InvoiceID bigint (Primary Key) IDENTITY(1,1)
+OrderID bigint not null(Foreign Key referencing Inventory.Order table)
+StatusTypeID bigint not null foreignkey from Miscellaneous.Type table (not paid, partially paid, fully paid)
+CreatedDate not null
+LastUpdate not null
+
+
+Billing.Payments:
+PaymentID bigint (Primary Key) IDENTITY(1,1)
+PaymentByUserID bigint not null (Foreign Key referencing Account.User table) (who paid?)
+InvoiceID bigint not null (Foreign Key referencing Billing.Invoices table)
+AmountPaid bigint not null
+PaymentMethod
+BillingAddressesID:
+CreatedDate not null
+LastUpdate not null
+
+Billing.PaymentMethods:
+PaymentMethodID bigint (Primary Key) IDENTITY(1,1)
+
+MethodType bigint not null (Foreign Key referencing Miscellaneous.Type table) (e.g., "Credit Card", "Bank Transfer")
+CardNumber
+ExpiryDate
+
+Billing.Receipts:
+ReceiptID (Primary Key)
+PaymentID (Foreign Key referencing Payments table)
+AmountReceived
+ReceivedDate
+CreditNotes:
+
+CreditNoteID (Primary Key)
+CustomerID (Foreign Key referencing Customers table)
+CreditAmount
+IssueDate
+Reason
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
