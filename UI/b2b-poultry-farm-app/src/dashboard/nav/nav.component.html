@@ -1,0 +1,24 @@
+<header class="header" id="header">
+    <nav class="navbar container">
+       <a href="#" class="brand">Farm</a>
+       <div class="search">
+          <form class="search-form">
+             <input type="text" name="search" class="search-input" placeholder="Search for product" autofocus>
+             <button type="submit" class="search-submit" disabled><i class="bx bx-search"></i></button>
+          </form>
+       </div>
+       <div class="menu" [ngClass]="isBurgerActive" id="menu">
+          <ul class="menu-inner">
+            <li class="menu-item" *ngFor="let navBarItem of navBarItems"><fa-icon [icon]="navBarItem.navItemIcon"></fa-icon>&nbsp;
+                <a href="#" class="menu-link" (click)="MenuLinkOnClick()">{{ navBarItem.navItemName }}</a>
+            </li>
+          </ul>
+       </div>
+       <div class="burger" [ngClass]="isBurgerActive" (click)="burgerMenuOnClick()" id="burger">
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+       </div>
+    </nav>
+ </header>
+
