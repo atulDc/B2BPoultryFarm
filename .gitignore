@@ -19,3 +19,6 @@
 /Service/PoultryFarmUi.Api/PoultryFarmUi.Api/obj
 /SQL/PoultryFarmDB/PoultryFarmDB/PoultryFarmDB.dbmdl
 /SQL/PoultryFarmDB/PoultryFarmDB/PoultryFarmDB.jfm
+/Service/PoultryFarmUi.Api/Common.DalPlatform/obj
+/Service/PoultryFarmUi.Api/PolutryFarm.DalLayer/obj
+/Service/PoultryFarmUi.Api/PoultryFarm.BplLayer/obj
