@@ -22,3 +22,5 @@
 /Service/PoultryFarmUi.Api/Common.DalPlatform/obj
 /Service/PoultryFarmUi.Api/PolutryFarm.DalLayer/obj
 /Service/PoultryFarmUi.Api/PoultryFarm.BplLayer/obj
+/Service/PoultryFarmUi.Api/PolutryFarm.DalLayer/bin/Debug/net6.0
+/Service/PoultryFarmUi.Api/Common.DalPlatform/bin/Debug/net6.0

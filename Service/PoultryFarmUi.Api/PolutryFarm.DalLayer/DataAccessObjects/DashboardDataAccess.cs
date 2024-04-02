@@ -5,20 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.DalPlatform;
+using Farm.DalLayer.DalHelpers;
+using Farm.DalLayer.DalInterfaces;
 
 namespace Farm.DalLayer.DataAccessObjects
 {
-    public class DashboardDataAccess
+    public class DashboardDataAccess: IDashboardDataAccess
     {
-        DataAccessLayer dataAccess;
-        DashboardDataAccess(DataAccessLayer dataAccess) 
+        IDataAccess dataAccess;
+        public DashboardDataAccess(IDataAccess dataAccess) 
         {
             this.dataAccess = dataAccess;
         }
 
         public IEnumerable<Categories> Category()
         {
-            return this.dataAccess.ExecuteReadTransaction<Categories>();
+            var resultSets = this.dataAccess.ExecuteReadTransaction(StoredProcedures.Categories, parameters: null, typeof(Categories));
+            IEnumerable<Categories> categories = Enumerable.Empty<Categories>();
+            foreach (var resultSet in resultSets)
+            {
+               categories = resultSet.Cast<Categories>();
+            }
+            return categories;
         }
     }
 }
