@@ -117,6 +117,8 @@ namespace Common.DalPlatform
                                             property.SetValue(instance, row[property.Name].ToString());
                                         else if (property.PropertyType == typeof(DateTime))
                                             property.SetValue(instance, Convert.ToDateTime(row[property.Name]));
+                                        else if(property.PropertyType == typeof(decimal))
+                                            property.SetValue(instance, Convert.ToDecimal(row[property.Name]));
                                     }
                                 }
                                 instanceList.Add(instance);

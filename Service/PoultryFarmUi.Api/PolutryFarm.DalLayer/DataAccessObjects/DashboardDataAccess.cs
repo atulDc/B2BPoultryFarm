@@ -18,7 +18,7 @@ namespace Farm.DalLayer.DataAccessObjects
             this.dataAccess = dataAccess;
         }
 
-        public IEnumerable<Categories> Category()
+        public IEnumerable<Categories> GetCategories()
         {
             var resultSets = this.dataAccess.ExecuteReadTransaction(StoredProcedures.Categories, parameters: null, typeof(Categories));
             IEnumerable<Categories> categories = Enumerable.Empty<Categories>();

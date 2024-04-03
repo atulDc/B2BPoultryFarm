@@ -7,12 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Common.DalPlatform\Common.DalPlatform.csproj" />
-    <ProjectReference Include="..\PolutryFarm.DalLayer\Farm.DalLayer.csproj" />
+    <ProjectReference Include="..\PoultryFarm.BplLayer\Farm.BplLayer.csproj" />
   </ItemGroup>
 
 </Project>

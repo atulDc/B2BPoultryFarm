@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Farm.DalLayer.DalInterfaces
+namespace Farm.BplLayer.BplInterfaces
 {
-    public interface IDashboardDataAccess
+    public interface IDashboardSvc
     {
         IEnumerable<Categories> GetCategories();
     }

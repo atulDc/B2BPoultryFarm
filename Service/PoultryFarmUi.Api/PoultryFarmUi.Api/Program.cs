@@ -1,5 +1,7 @@
 using System.Reflection;
 using Common.DalPlatform;
+using Farm.BplLayer.BplInterfaces;
+using Farm.BplLayer.Services;
 using Farm.DalLayer.DalInterfaces;
 using Farm.DalLayer.DataAccessObjects;
 
@@ -13,8 +15,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IDataAccess, DataAccessLayer>();
 builder.Services.AddScoped<IDashboardDataAccess, DashboardDataAccess>();
+builder.Services.AddScoped<IDashboardSvc, DashboardSvc>();
 
 var app = builder.Build();
 

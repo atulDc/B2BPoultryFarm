@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BplInterfaces\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\PolutryFarm.DalLayer\Farm.DalLayer.csproj" />
   </ItemGroup>
 
 </Project>
