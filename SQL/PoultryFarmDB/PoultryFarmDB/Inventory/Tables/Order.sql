@@ -28,11 +28,17 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Inventory].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_Account_User] FOREIGN KEY([UserID])
 REFERENCES [Account].[Users] ([UserId])
 GO
 
 ALTER TABLE [Inventory].[Order] CHECK CONSTRAINT [FK_Order_Account_User]
+GO
+
+
 GO
 
 

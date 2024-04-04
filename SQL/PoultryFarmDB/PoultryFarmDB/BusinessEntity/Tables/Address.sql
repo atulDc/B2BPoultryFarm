@@ -64,3 +64,12 @@ REFERENCES [BusinessEntity].[Offices] ([OfficeID])
 GO
 ALTER TABLE [BusinessEntity].[Address]  WITH CHECK ADD FOREIGN KEY([TypeID])
 REFERENCES [Miscellaneous].[Type] ([TypeId])
+GO
+ALTER TABLE [BusinessEntity].[Address]  WITH CHECK ADD FOREIGN KEY([CompanyID])
+REFERENCES [BusinessEntity].[Companies] ([CompanyID])
+GO
+ALTER TABLE [BusinessEntity].[Address]  WITH CHECK ADD FOREIGN KEY([OfficeID])
+REFERENCES [BusinessEntity].[Offices] ([OfficeID])
+GO
+ALTER TABLE [BusinessEntity].[Address]  WITH CHECK ADD FOREIGN KEY([TypeID])
+REFERENCES [Miscellaneous].[Type] ([TypeId])

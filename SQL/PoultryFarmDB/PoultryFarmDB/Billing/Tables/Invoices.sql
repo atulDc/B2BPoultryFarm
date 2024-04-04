@@ -28,11 +28,17 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Billing].[Invoices]  WITH CHECK ADD  CONSTRAINT [FK_Invoice_Order] FOREIGN KEY([OrderID])
 REFERENCES [Inventory].[Order] ([OrderID])
 GO
 
 ALTER TABLE [Billing].[Invoices] CHECK CONSTRAINT [FK_Invoice_Order]
+GO
+
+
 GO
 
 

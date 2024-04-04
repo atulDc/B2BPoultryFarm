@@ -6,5 +6,6 @@ namespace PoultryFarmUi.Api.DTOModels
         public string CategoryKey { get; set; }
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
+        public string CategoryImagePath { get; set; }
     }
 }

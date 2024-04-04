@@ -29,3 +29,6 @@ REFERENCES [Account].[Users] ([UserId])
 GO
 ALTER TABLE [Account].[PANDetails]  WITH CHECK ADD FOREIGN KEY([UserID])
 REFERENCES [Account].[Users] ([UserId])
+GO
+ALTER TABLE [Account].[PANDetails]  WITH CHECK ADD FOREIGN KEY([UserID])
+REFERENCES [Account].[Users] ([UserId])

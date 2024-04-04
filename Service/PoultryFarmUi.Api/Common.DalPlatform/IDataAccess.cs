@@ -9,7 +9,7 @@ namespace Common.DalPlatform
 {
     public interface IDataAccess
     {
-        public bool ExecuteNonQueryTransaction(string storedProcedure, SqlParameter[] parameters);
-        public IEnumerable<IEnumerable<Object>> ExecuteReadTransaction(string storedProcedure, SqlParameter[] parameters, params Type[] additionalTypes);
+        public Task<bool> ExecuteNonQueryTransactionAsync(string storedProcedure, SqlParameter[] parameters);
+        public Task<IEnumerable<IEnumerable<Object>>> ExecuteReadTransactionAsync(string storedProcedure, SqlParameter[] parameters, params Type[] additionalTypes);
     }
 }

@@ -29,3 +29,6 @@ REFERENCES [BusinessEntity].[Companies] ([CompanyID])
 GO
 ALTER TABLE [Billing].[GSTNumbers]  WITH CHECK ADD FOREIGN KEY([CompanyID])
 REFERENCES [BusinessEntity].[Companies] ([CompanyID])
+GO
+ALTER TABLE [Billing].[GSTNumbers]  WITH CHECK ADD FOREIGN KEY([CompanyID])
+REFERENCES [BusinessEntity].[Companies] ([CompanyID])

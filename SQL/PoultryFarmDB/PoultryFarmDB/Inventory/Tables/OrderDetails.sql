@@ -33,11 +33,17 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Inventory].[OrderDetails]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetails_Inventory_Order] FOREIGN KEY([OrderID])
 REFERENCES [Inventory].[Order] ([OrderID])
 GO
 
 ALTER TABLE [Inventory].[OrderDetails] CHECK CONSTRAINT [FK_OrderDetails_Inventory_Order]
+GO
+
+
 GO
 
 
@@ -63,11 +69,17 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Inventory].[OrderDetails]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetails_BusinessEntity_InventoryAddress] FOREIGN KEY([InventoryAddressID])
 REFERENCES [BusinessEntity].[Address] ([AddressID])
 GO
 
 ALTER TABLE [Inventory].[OrderDetails] CHECK CONSTRAINT [FK_OrderDetails_BusinessEntity_InventoryAddress]
+GO
+
+
 GO
 
 

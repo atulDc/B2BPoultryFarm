@@ -32,11 +32,17 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Support].[Complaints]  WITH CHECK ADD  CONSTRAINT [FK_Complaint_Order] FOREIGN KEY([OrderID])
 REFERENCES [Inventory].[Order] ([OrderID])
 GO
 
 ALTER TABLE [Support].[Complaints] CHECK CONSTRAINT [FK_Complaint_Order]
+GO
+
+
 GO
 
 
@@ -62,11 +68,17 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Support].[Complaints]  WITH CHECK ADD  CONSTRAINT [FK_Complaint_ComplaintType] FOREIGN KEY([ComplaintType])
 REFERENCES [Miscellaneous].[Type] ([TypeId])
 GO
 
 ALTER TABLE [Support].[Complaints] CHECK CONSTRAINT [FK_Complaint_ComplaintType]
+GO
+
+
 GO
 
 

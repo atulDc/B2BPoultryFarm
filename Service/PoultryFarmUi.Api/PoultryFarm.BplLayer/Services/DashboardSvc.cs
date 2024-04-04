@@ -16,9 +16,9 @@ namespace Farm.BplLayer.Services
         { 
             this.dataAccess = dataAccess;
         }
-        public IEnumerable<Categories> GetCategories()
+        public async Task<IEnumerable<Categories>> GetCategories()
         {
-            return this.dataAccess.GetCategories();
+            return await this.dataAccess.GetCategories().ConfigureAwait(false);
         }
 
     }

@@ -13,6 +13,7 @@ namespace PolutryFarm.DalLayer.EntityModels
         public string CategoryKey { get; set; }
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
+        public string FilePath { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastUpdate { get; set; }
     }

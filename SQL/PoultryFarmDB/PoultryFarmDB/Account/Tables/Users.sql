@@ -54,3 +54,9 @@ REFERENCES [BusinessEntity].[Companies] ([CompanyID])
 GO
 ALTER TABLE [Account].[Users]  WITH CHECK ADD FOREIGN KEY([OfficeID])
 REFERENCES [BusinessEntity].[Offices] ([OfficeID])
+GO
+ALTER TABLE [Account].[Users]  WITH CHECK ADD FOREIGN KEY([CompanyID])
+REFERENCES [BusinessEntity].[Companies] ([CompanyID])
+GO
+ALTER TABLE [Account].[Users]  WITH CHECK ADD FOREIGN KEY([OfficeID])
+REFERENCES [BusinessEntity].[Offices] ([OfficeID])

@@ -17,8 +17,13 @@ GO
 
 ALTER TABLE [Support].[OwnerVerificationHistory] CHECK CONSTRAINT [FK_OwnerVerificationHistory_Request]
 GO
+
+
+GO
 ALTER TABLE [Support].[OwnerVerificationHistory]  WITH CHECK ADD  CONSTRAINT [FK_OwnerVerificationHistory_VerificationStatusHistoryType] FOREIGN KEY([VerificationStatusHistoryTypeID])
 REFERENCES [Miscellaneous].[Type] ([TypeId])
 GO
 
 ALTER TABLE [Support].[OwnerVerificationHistory] CHECK CONSTRAINT [FK_OwnerVerificationHistory_VerificationStatusHistoryType]
+GO
+

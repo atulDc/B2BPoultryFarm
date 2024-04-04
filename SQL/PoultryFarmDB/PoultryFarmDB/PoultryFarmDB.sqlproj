@@ -132,6 +132,10 @@
     <Folder Include="Support\Tables\" />
     <Folder Include="Security\" />
     <Folder Include="Scripts\" />
+    <Folder Include="StaticData" />
+    <Folder Include="StaticData\Inventory" />
+    <Folder Include="StaticData\DocumentStorage" />
+    <Folder Include="StaticData\Miscellaneous" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Inventory\Tables\Categories.sql">
@@ -241,5 +245,10 @@
     <Build Include="Support\Tables\OwnerVerificationDocuments.sql" />
     <Build Include="Support\Tables\OwnerVerificationHistory.sql" />
     <Build Include="Support\Tables\OwnerVerificationRequest.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="StaticData\Inventory\Categories_Insert.sql" />
+    <None Include="StaticData\DocumentStorage\UIDocuments_Insert.sql" />
+    <None Include="StaticData\Miscellaneous\Type.sql" />
   </ItemGroup>
 </Project>

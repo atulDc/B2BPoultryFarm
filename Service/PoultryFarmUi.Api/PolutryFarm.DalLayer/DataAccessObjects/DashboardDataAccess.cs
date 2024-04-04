@@ -18,10 +18,10 @@ namespace Farm.DalLayer.DataAccessObjects
             this.dataAccess = dataAccess;
         }
 
-        public IEnumerable<Categories> GetCategories()
+        public async Task<IEnumerable<Categories>> GetCategories()
         {
-            var resultSets = this.dataAccess.ExecuteReadTransaction(StoredProcedures.Categories, parameters: null, typeof(Categories));
             IEnumerable<Categories> categories = Enumerable.Empty<Categories>();
+            var resultSets = await this.dataAccess.ExecuteReadTransactionAsync(StoredProcedures.Categories, parameters: null, typeof(Categories)).ConfigureAwait(false);
             foreach (var resultSet in resultSets)
             {
                categories = resultSet.Cast<Categories>();

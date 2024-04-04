@@ -32,6 +32,9 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Inventory].[CartDetails]  WITH CHECK ADD  CONSTRAINT [FK_CartDetails_Inventory_Cart] FOREIGN KEY([CartID])
 REFERENCES [Inventory].[Cart] ([CartID])
 GO
@@ -47,11 +50,17 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Inventory].[CartDetails]  WITH CHECK ADD  CONSTRAINT [FK_CartDetails_BusinessEntity_ShippingAddress] FOREIGN KEY([ShippingAddressID])
 REFERENCES [BusinessEntity].[Address] ([AddressID])
 GO
 
 ALTER TABLE [Inventory].[CartDetails] CHECK CONSTRAINT [FK_CartDetails_BusinessEntity_ShippingAddress]
+GO
+
+
 GO
 
 

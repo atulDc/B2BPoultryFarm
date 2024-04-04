@@ -9,6 +9,6 @@ namespace Farm.BplLayer.BplInterfaces
 {
     public interface IDashboardSvc
     {
-        IEnumerable<Categories> GetCategories();
+        Task<IEnumerable<Categories>> GetCategories();
     }
 }

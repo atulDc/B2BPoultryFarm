@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 
 namespace Common.DalPlatform
@@ -19,49 +20,58 @@ namespace Common.DalPlatform
             this.connectionString = dbSettings.Value.DbConnectionString;
         }
 
-        private int ExecuteNonQueryStoredProcedure(string procedureName, SqlParameter[] parameters)
+        private async Task<int> ExecuteNonQueryStoredProcedure(string procedureName, SqlParameter[] parameters)
         {
             using (var conn = new SqlConnection(this.connectionString))
             {
-                conn.Open();
+                await conn.OpenAsync();
                 using (var command = new SqlCommand(procedureName, conn))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddRange(parameters);
-                    return command.ExecuteNonQuery();
+                    return await command.ExecuteNonQueryAsync(); ;
                 }
             }
         }
 
-        public bool ExecuteNonQueryTransaction(string storedProcedure, SqlParameter[] parameters)
+        public async Task<bool> ExecuteNonQueryTransactionAsync(string storedProcedure, SqlParameter[] parameters)
         {
+            int rowCount = 0;
             using (var scope = new TransactionScope())
             {
                 try
                 {
-                    int rowCount = ExecuteNonQueryStoredProcedure(storedProcedure, parameters);
+                    rowCount = await ExecuteNonQueryStoredProcedure(storedProcedure, parameters);
                     scope.Complete();
-
-                    if (rowCount > 0)
-                    {
-                        return true;
-                    }
-
-                    return false;
                 }
                 catch (Exception ex)
                 {
                     throw;
                 }
             }
+
+            try
+            {
+                if (rowCount > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
-        private IEnumerable<DataTable> ExecuteStoredProcedure(string procedureName, SqlParameter[] parameters)
+
+        private async Task<IEnumerable<DataTable>> ExecuteStoredProcedureAsync(string procedureName, SqlParameter[] parameters)
         {
             IEnumerable<DataTable> resultSets = Enumerable.Empty<DataTable>();
             using (var conn = new SqlConnection(this.connectionString))
             {
-                conn.Open();
+                await conn.OpenAsync();
                 using (var command = new SqlCommand(procedureName, conn))
                 {
                     command.CommandType = CommandType.StoredProcedure;
@@ -71,7 +81,7 @@ namespace Common.DalPlatform
                         command.Parameters.AddRange(parameters);
                     }
 
-                    using (var reader = command.ExecuteReader())
+                    using (var reader = await command.ExecuteReaderAsync())
                     {
                         List<DataTable> resultSetsList = new List<DataTable>();
                         do
@@ -79,7 +89,7 @@ namespace Common.DalPlatform
                             DataTable dataTable = new DataTable();
                             dataTable.Load(reader);
                             resultSetsList.Add(dataTable);
-                        } while (!reader.IsClosed && reader.NextResult());
+                        } while (!reader.IsClosed && await reader.NextResultAsync());
                         resultSets = resultSetsList;
                     }
                 }
@@ -88,51 +98,59 @@ namespace Common.DalPlatform
             return resultSets;
         }
 
-        public IEnumerable<IEnumerable<Object>> ExecuteReadTransaction(string storedProcedure, SqlParameter[] parameters, params Type[] additionalTypes)
+        public async Task<IEnumerable<IEnumerable<Object>>> ExecuteReadTransactionAsync(string storedProcedure, SqlParameter[] parameters, params Type[] additionalTypes)
         {
-            using (var scope = new TransactionScope())
+            var resultSets = Enumerable.Empty<DataTable>();
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 try
                 {
-                    var resultSets = ExecuteStoredProcedure(storedProcedure, parameters);
+                    resultSets = await ExecuteStoredProcedureAsync(storedProcedure, parameters);
                     scope.Complete();
-
-                    IEnumerable<IEnumerable<Object>> dataObjects = additionalTypes
-                        .Zip<Type, DataTable, IEnumerable<Object>>(resultSets, (Type typeItem, DataTable dt) =>
-                        {  
-                            PropertyInfo[] properties = typeItem.GetProperties();
-                            IEnumerable<DataRow> dataRows = dt.Rows.Cast<DataRow>();
-                            List<Object> instanceList = new List<Object>();
-                            foreach(var row in dataRows)
-                            {
-                                Object instance = Activator.CreateInstance(typeItem);
-
-                                foreach (var property in properties)
-                                {
-                                    if (property.CanWrite)
-                                    {
-                                        if (property.PropertyType == typeof(int))
-                                            property.SetValue(instance, Convert.ToInt32(row[property.Name]));
-                                        else if (property.PropertyType == typeof(string))
-                                            property.SetValue(instance, row[property.Name].ToString());
-                                        else if (property.PropertyType == typeof(DateTime))
-                                            property.SetValue(instance, Convert.ToDateTime(row[property.Name]));
-                                        else if(property.PropertyType == typeof(decimal))
-                                            property.SetValue(instance, Convert.ToDecimal(row[property.Name]));
-                                    }
-                                }
-                                instanceList.Add(instance);
-                            }
-
-                            return instanceList;
-                        });
-
-                    return dataObjects;
                 }
                 catch (Exception ex)
                 {
                     throw;
                 }
+            }
+
+            try
+            {
+                IEnumerable<IEnumerable<Object>> dataObjects = additionalTypes
+                    .Zip<Type, DataTable, IEnumerable<Object>>(resultSets, (Type typeItem, DataTable dt) =>
+                    {
+                        PropertyInfo[] properties = typeItem.GetProperties();
+                        IEnumerable<DataRow> dataRows = dt.Rows.Cast<DataRow>();
+                        List<Object> instanceList = new List<Object>();
+                        foreach (var row in dataRows)
+                        {
+                            Object instance = Activator.CreateInstance(typeItem);
+
+                            foreach (var property in properties)
+                            {
+                                if (property.CanWrite)
+                                {
+                                    if (property.PropertyType == typeof(int))
+                                        property.SetValue(instance, Convert.ToInt32(row[property.Name]));
+                                    else if (property.PropertyType == typeof(string))
+                                        property.SetValue(instance, row[property.Name].ToString());
+                                    else if (property.PropertyType == typeof(DateTime))
+                                        property.SetValue(instance, Convert.ToDateTime(row[property.Name]));
+                                    else if (property.PropertyType == typeof(decimal))
+                                        property.SetValue(instance, Convert.ToDecimal(row[property.Name]));
+                                }
+                            }
+                            instanceList.Add(instance);
+                        }
+
+                        return instanceList;
+                    });
+
+                return dataObjects;
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }

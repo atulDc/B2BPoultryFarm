@@ -19,14 +19,22 @@ GO
 
 ALTER TABLE [Support].[OwnerVerificationDocuments] CHECK CONSTRAINT [FK_OwnerVerificationDocuments_DocumentType]
 GO
+
+
+GO
 ALTER TABLE [Support].[OwnerVerificationDocuments]  WITH CHECK ADD  CONSTRAINT [FK_OwnerVerificationDocuments_Request] FOREIGN KEY([RequestID])
 REFERENCES [Support].[OwnerVerificationRequest] ([RequestID])
 GO
 
 ALTER TABLE [Support].[OwnerVerificationDocuments] CHECK CONSTRAINT [FK_OwnerVerificationDocuments_Request]
 GO
+
+
+GO
 ALTER TABLE [Support].[OwnerVerificationDocuments]  WITH CHECK ADD  CONSTRAINT [FK_OwnerVerificationDocuments_VerificationStatus] FOREIGN KEY([VerificationStatus])
 REFERENCES [Miscellaneous].[Type] ([TypeId])
 GO
 
 ALTER TABLE [Support].[OwnerVerificationDocuments] CHECK CONSTRAINT [FK_OwnerVerificationDocuments_VerificationStatus]
+GO
+

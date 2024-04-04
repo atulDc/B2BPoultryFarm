@@ -27,3 +27,6 @@ REFERENCES [BusinessEntity].[Companies] ([CompanyID])
 GO
 ALTER TABLE [BusinessEntity].[Offices]  WITH CHECK ADD FOREIGN KEY([CompanyID])
 REFERENCES [BusinessEntity].[Companies] ([CompanyID])
+GO
+ALTER TABLE [BusinessEntity].[Offices]  WITH CHECK ADD FOREIGN KEY([CompanyID])
+REFERENCES [BusinessEntity].[Companies] ([CompanyID])

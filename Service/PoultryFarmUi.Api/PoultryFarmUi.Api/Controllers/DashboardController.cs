@@ -6,7 +6,7 @@ using PoultryFarmUi.Api.DTOModels;
 namespace PoultryFarmUi.Api.Controllers
 {
     [ApiController]
-    [Route("dashboard")]
+    [Route("api/inventory")]
     public class DashboardController : ControllerBase
     {
         private readonly ILogger<DashboardController> logger;
@@ -20,15 +20,16 @@ namespace PoultryFarmUi.Api.Controllers
             this.dashboardSvc = dashboardSvc;
         }
 
-        [HttpGet(Name = "GetCategories")]
+        [HttpGet]
+        [Route("categories")]
         [ProducesResponseType(typeof(IEnumerable<Category>), 200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult GetCategories()
+        public async Task<IActionResult> GetCategories()
         {
             try
             {
-                var categories = this.dashboardSvc.GetCategories();
+                var categories = await this.dashboardSvc.GetCategories().ConfigureAwait(false);
                 if (categories == null || categories.Count() == 0)
                 {
                     return NotFound();

@@ -18,8 +18,13 @@ GO
 
 ALTER TABLE [Support].[OwnerVerificationRequest] CHECK CONSTRAINT [FK_OwnerVerificationRequest_User]
 GO
+
+
+GO
 ALTER TABLE [Support].[OwnerVerificationRequest]  WITH CHECK ADD  CONSTRAINT [FK_OwnerVerificationRequest_VerificationStatusType] FOREIGN KEY([VerificationStatusTypeID])
 REFERENCES [Miscellaneous].[Type] ([TypeId])
 GO
 
 ALTER TABLE [Support].[OwnerVerificationRequest] CHECK CONSTRAINT [FK_OwnerVerificationRequest_VerificationStatusType]
+GO
+

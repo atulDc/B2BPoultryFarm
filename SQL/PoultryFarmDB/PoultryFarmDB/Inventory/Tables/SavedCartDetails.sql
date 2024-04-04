@@ -31,11 +31,17 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Inventory].[SavedCartDetails]  WITH CHECK ADD  CONSTRAINT [FK_SavedCartDetails_Inventory_Cart] FOREIGN KEY([SavedCartID])
 REFERENCES [Inventory].[SavedCarts] ([SavedCartID])
 GO
 
 ALTER TABLE [Inventory].[SavedCartDetails] CHECK CONSTRAINT [FK_SavedCartDetails_Inventory_Cart]
+GO
+
+
 GO
 
 

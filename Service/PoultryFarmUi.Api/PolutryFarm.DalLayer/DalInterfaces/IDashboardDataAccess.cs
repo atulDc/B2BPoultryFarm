@@ -9,6 +9,6 @@ namespace Farm.DalLayer.DalInterfaces
 {
     public interface IDashboardDataAccess
     {
-        IEnumerable<Categories> GetCategories();
+        Task<IEnumerable<Categories>> GetCategories();
     }
 }

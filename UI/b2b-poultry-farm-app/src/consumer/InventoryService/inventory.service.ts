@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environments';
+import { ICategory } from '../Models/Categories';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
+export class InventoryService {
 
+  inventoryUrl = "/inventory";
   constructor(private http: HttpClient) 
   { 
     this.http = http;
@@ -17,8 +20,8 @@ export class DashboardService {
     return of(["Categories", "Account", "Cart"]);
   }
 
-  getCategories(): Observable<string[]>
+  getCategories(): Observable<ICategory[]>
   {
-    return of(["Hen", "Goat", "Egg", "Freshwater Fish", "Seawater Fish", "Crabs-Prawns"])
+    return this.http.get<ICategory[]>(environment.apiUrl + this.inventoryUrl + '/categories');
   }
 }

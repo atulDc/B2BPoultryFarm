@@ -29,6 +29,9 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Inventory].[InventoryDetails]  WITH CHECK ADD  CONSTRAINT [FK_Inventory_Miscellaneous_Units] FOREIGN KEY([UnitID])
 REFERENCES [Miscellaneous].[Units] ([UnitID])
 GO
@@ -44,11 +47,17 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Inventory].[InventoryDetails]  WITH CHECK ADD  CONSTRAINT [FK_Inventory_Inventory_Product] FOREIGN KEY([ProductID])
 REFERENCES [Inventory].[Products] ([ProductID])
 GO
 
 ALTER TABLE [Inventory].[InventoryDetails] CHECK CONSTRAINT [FK_Inventory_Inventory_Product]
+GO
+
+
 GO
 
 

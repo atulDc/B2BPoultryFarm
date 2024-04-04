@@ -32,11 +32,17 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Billing].[Payments]  WITH CHECK ADD  CONSTRAINT [FK_Payment_MethodType] FOREIGN KEY([PaymentMethodType])
 REFERENCES [Miscellaneous].[Type] ([TypeId])
 GO
 
 ALTER TABLE [Billing].[Payments] CHECK CONSTRAINT [FK_Payment_MethodType]
+GO
+
+
 GO
 
 
@@ -62,6 +68,9 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Billing].[Payments]  WITH CHECK ADD  CONSTRAINT [FK_Payment_CardDetail] FOREIGN KEY([CardDetailID])
 REFERENCES [Billing].[CardDetails] ([CardDetailID])
 GO
@@ -77,11 +86,17 @@ GO
 
 
 GO
+
+
+GO
 ALTER TABLE [Billing].[Payments]  WITH CHECK ADD  CONSTRAINT [FK_Payment_BillingAddress] FOREIGN KEY([BillingAddressesID])
 REFERENCES [BusinessEntity].[Address] ([AddressID])
 GO
 
 ALTER TABLE [Billing].[Payments] CHECK CONSTRAINT [FK_Payment_BillingAddress]
+GO
+
+
 GO
 
 

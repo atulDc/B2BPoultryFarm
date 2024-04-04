@@ -14,7 +14,8 @@ namespace PoultryFarmUi.Api.Profiles
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.CategoryId, opt => opt.Ignore());
             */
-            CreateMap<Categories, Category>();
+            CreateMap<Categories, Category>()
+                .ForMember(dest => dest.CategoryImagePath , opt => opt.MapFrom(src => src.FilePath));
         }
     }
 }
