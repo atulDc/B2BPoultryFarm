@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PolutryFarm.DalLayer.EntityModels
+namespace Farm.DalLayer.EntityModels
 {
     public class Categories
     {

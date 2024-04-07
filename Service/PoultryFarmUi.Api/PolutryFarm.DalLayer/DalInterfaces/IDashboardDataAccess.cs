@@ -1,4 +1,4 @@
-﻿using PolutryFarm.DalLayer.EntityModels;
+﻿using Farm.DalLayer.EntityModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +10,6 @@ namespace Farm.DalLayer.DalInterfaces
     public interface IDashboardDataAccess
     {
         Task<IEnumerable<Categories>> GetCategories();
+        Task<IEnumerable<Products>> GetProdcutsByCategoryID(Guid id);
     }
 }

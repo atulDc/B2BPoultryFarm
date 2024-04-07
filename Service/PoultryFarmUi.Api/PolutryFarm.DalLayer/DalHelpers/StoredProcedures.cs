@@ -8,6 +8,7 @@ namespace Farm.DalLayer.DalHelpers
 {
     static public class StoredProcedures
     {
-        public static string Categories = "Inventory.GetCategories";
+        public static string GetCategories = "Inventory.GetCategories";
+        public static string GetProductsByCategoryID = "Inventory.GetProductsByCategoryId";
     }
 }

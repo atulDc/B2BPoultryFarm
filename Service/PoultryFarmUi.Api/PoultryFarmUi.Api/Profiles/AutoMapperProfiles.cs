@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using PolutryFarm.DalLayer.EntityModels;
-using PoultryFarmUi.Api.DTOModels;
+using Farm.DalLayer.EntityModels;
+using EntityModel = Farm.DalLayer.EntityModels;
+using DTOModel = PoultryFarmUi.Api.DTOModels;
 
 namespace PoultryFarmUi.Api.Profiles
 {
@@ -14,8 +15,10 @@ namespace PoultryFarmUi.Api.Profiles
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.CategoryId, opt => opt.Ignore());
             */
-            CreateMap<Categories, Category>()
+            CreateMap<EntityModel.Categories, DTOModel.Category>()
                 .ForMember(dest => dest.CategoryImagePath , opt => opt.MapFrom(src => src.FilePath));
+
+            CreateMap<EntityModel.Products, DTOModel.Products>();
         }
     }
 }

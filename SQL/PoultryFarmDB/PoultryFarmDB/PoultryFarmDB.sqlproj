@@ -136,6 +136,10 @@
     <Folder Include="StaticData\Inventory" />
     <Folder Include="StaticData\DocumentStorage" />
     <Folder Include="StaticData\Miscellaneous" />
+    <Folder Include="DocumentStorage\" />
+    <Folder Include="DocumentStorage\Tables\" />
+    <Folder Include="Inventory\Views\" />
+    <Folder Include="Inventory\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Inventory\Tables\Categories.sql">
@@ -245,10 +249,16 @@
     <Build Include="Support\Tables\OwnerVerificationDocuments.sql" />
     <Build Include="Support\Tables\OwnerVerificationHistory.sql" />
     <Build Include="Support\Tables\OwnerVerificationRequest.sql" />
+    <Build Include="DocumentStorage\Tables\UIDocuments.sql" />
+    <Build Include="Inventory\Views\Categories_View.sql" />
+    <Build Include="Inventory\Stored Procedures\GetCategories.sql" />
+    <Build Include="Security\DocumentStorage.sql" />
+    <Build Include="Security\PhysicalAddress.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="StaticData\Inventory\Categories_Insert.sql" />
     <None Include="StaticData\DocumentStorage\UIDocuments_Insert.sql" />
-    <None Include="StaticData\Miscellaneous\Type.sql" />
+    <None Include="StaticData\Miscellaneous\Type_Insert.sql" />
+    <None Include="StaticData\Inventory\Products_Insert.sql" />
   </ItemGroup>
 </Project>

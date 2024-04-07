@@ -44,5 +44,30 @@ namespace PoultryFarmUi.Api.Controllers
                 return StatusCode(500, "Internal server error.");
             }
         }
+
+        [HttpGet]
+        [Route("categories/{id}/products")]
+        [ProducesResponseType(typeof(IEnumerable<Products>), 200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> GetProdcutsByCategoryID([FromRoute] Guid id)
+        {
+            try
+            {
+                var products = await this.dashboardSvc.GetProdcutsByCategoryID(id).ConfigureAwait(false);
+                if (products == null || products.Count() == 0)
+                {
+                    return NotFound();
+                }
+
+                var productListDto = this.mapper.Map<IEnumerable<Products>>(products);
+                return Ok(productListDto);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError($"TimeStamp: {DateTime.Now}, Error Message: {ex.Message} \n");
+                return StatusCode(500, "Internal server error.");
+            }
+        }
     }
 }

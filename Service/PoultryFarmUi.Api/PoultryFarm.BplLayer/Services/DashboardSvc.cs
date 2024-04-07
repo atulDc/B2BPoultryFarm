@@ -1,6 +1,6 @@
 ﻿using Farm.BplLayer.BplInterfaces;
 using Farm.DalLayer.DalInterfaces;
-using PolutryFarm.DalLayer.EntityModels;
+using Farm.DalLayer.EntityModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +19,11 @@ namespace Farm.BplLayer.Services
         public async Task<IEnumerable<Categories>> GetCategories()
         {
             return await this.dataAccess.GetCategories().ConfigureAwait(false);
+        }
+
+        public async Task<IEnumerable<Products>> GetProdcutsByCategoryID(Guid id)
+        {
+            return await this.dataAccess.GetProdcutsByCategoryID(id).ConfigureAwait(false);
         }
 
     }

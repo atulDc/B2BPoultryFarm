@@ -20,7 +20,7 @@ namespace Common.DalPlatform
             this.connectionString = dbSettings.Value.DbConnectionString;
         }
 
-        private async Task<int> ExecuteNonQueryStoredProcedure(string procedureName, SqlParameter[] parameters)
+        private async Task<int> ExecuteNonQueryStoredProcedure(string procedureName, List<SqlParameter> parameters)
         {
             using (var conn = new SqlConnection(this.connectionString))
             {
@@ -28,13 +28,17 @@ namespace Common.DalPlatform
                 using (var command = new SqlCommand(procedureName, conn))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddRange(parameters);
+                    if(parameters != null && parameters.Count() > 0)
+                    {
+                        command.Parameters.AddRange(parameters.ToArray<SqlParameter>());
+                    }
+
                     return await command.ExecuteNonQueryAsync(); ;
                 }
             }
         }
 
-        public async Task<bool> ExecuteNonQueryTransactionAsync(string storedProcedure, SqlParameter[] parameters)
+        public async Task<bool> ExecuteNonQueryTransactionAsync(string storedProcedure, List<SqlParameter> parameters)
         {
             int rowCount = 0;
             using (var scope = new TransactionScope())
@@ -66,7 +70,7 @@ namespace Common.DalPlatform
         }
 
 
-        private async Task<IEnumerable<DataTable>> ExecuteStoredProcedureAsync(string procedureName, SqlParameter[] parameters)
+        private async Task<IEnumerable<DataTable>> ExecuteStoredProcedureAsync(string procedureName, List<SqlParameter> parameters)
         {
             IEnumerable<DataTable> resultSets = Enumerable.Empty<DataTable>();
             using (var conn = new SqlConnection(this.connectionString))
@@ -76,9 +80,9 @@ namespace Common.DalPlatform
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
-                    if (parameters is not null && parameters.Length > 0)
+                    if (parameters is not null && parameters.Count() > 0)
                     {
-                        command.Parameters.AddRange(parameters);
+                        command.Parameters.AddRange(parameters.ToArray<SqlParameter>());
                     }
 
                     using (var reader = await command.ExecuteReaderAsync())
@@ -98,7 +102,7 @@ namespace Common.DalPlatform
             return resultSets;
         }
 
-        public async Task<IEnumerable<IEnumerable<Object>>> ExecuteReadTransactionAsync(string storedProcedure, SqlParameter[] parameters, params Type[] additionalTypes)
+        public async Task<IEnumerable<IEnumerable<Object>>> ExecuteReadTransactionAsync(string storedProcedure, List<SqlParameter> parameters, params Type[] additionalTypes)
         {
             var resultSets = Enumerable.Empty<DataTable>();
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -138,6 +142,10 @@ namespace Common.DalPlatform
                                         property.SetValue(instance, Convert.ToDateTime(row[property.Name]));
                                     else if (property.PropertyType == typeof(decimal))
                                         property.SetValue(instance, Convert.ToDecimal(row[property.Name]));
+                                    else if (property.PropertyType == typeof(Guid))
+                                        property.SetValue(instance, (Guid)row[property.Name]);
+                                    else if (property.PropertyType == typeof(bool))
+                                        property.SetValue(instance, Convert.ToBoolean(row[property.Name]));
                                 }
                             }
                             instanceList.Add(instance);
