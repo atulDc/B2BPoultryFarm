@@ -4,6 +4,7 @@ using Farm.BplLayer.BplInterfaces;
 using Farm.BplLayer.Services;
 using Farm.DalLayer.DalInterfaces;
 using Farm.DalLayer.DataAccessObjects;
+using PoultryFarmUi.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,8 +37,13 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+else
+{
+    app.UseGlobalException();
 }
 
 app.UseHttpsRedirection();
